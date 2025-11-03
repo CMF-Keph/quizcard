@@ -1,5 +1,9 @@
-export const Home = () => {
+const Home = () => {
   return (
-    <div>Home</div>
+    <div className="mx-auto max-w-7xl flex flex-col gap-8">
+
+    </div>
   )
 }
+
+export default Home;
