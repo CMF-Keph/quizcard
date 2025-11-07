@@ -5,7 +5,7 @@ import Navbar from "./shared/Navbar";
 
 const font = Lato({
   subsets: ['latin'],
-  weight: ['100', '300', '700']
+  weight: ['100', '300', '400', '700']
 });
 
 export const metadata: Metadata = {
@@ -24,7 +24,7 @@ export default function RootLayout({
         className={`${font.className} antialiased bg-gray-900 text-gray-100`}
       >
         <Navbar></Navbar>
-        <main className="p-4">
+        <main className="px-4 py-12">
           {children}
         </main>
       </body>
