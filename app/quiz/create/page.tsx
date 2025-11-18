@@ -22,7 +22,7 @@ const Create = () => {
             <input type="number" name="deckDefaultEasiness" id="deckDefaultEasiness" value={2.5} placeholder="Ej: 2,5" disabled step={0.1} className="disabled:text-gray-500 placeholder:text-gray-300 w-full p-2 bg-gray-800 border border-gray-700 rounded-lg text-lg"></input>
           </div>
           <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold p-4 rounded cursor-pointer w-full">
-            Crear Quizcard
+            Crear Tarjeta
           </button>
         </form>
       </div>

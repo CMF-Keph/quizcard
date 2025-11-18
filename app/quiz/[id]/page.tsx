@@ -3,7 +3,7 @@ const Quiz = () => {
 		<div className="mx-auto max-w-7xl flex flex-col gap-8">
 			<div className="flex flex-wrap w-full justify-between">
 				<div className="flex flex-col gap-2 w-full">
-					<h1 className="text-4xl font-bold text-gray-100">Título de la Quizcard</h1>
+					<h1 className="text-4xl font-bold text-gray-100">Título de la Tarjeta</h1>
 					<p className="text-gray-300 text-lg font-medium">1 de 34 aprendidas</p>
 				</div>
 			</div>
