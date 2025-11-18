@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Lato } from "next/font/google";
 import "./globals.css"
 import Navbar from "./shared/Navbar";
+import Popup from "./shared/Popup";
 
 const font = Lato({
   subsets: ['latin'],
@@ -21,8 +22,13 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body
-        className={`${font.className} antialiased bg-gray-900 text-gray-100`}
+        className={`${font.className} antialiased bg-gray-900 text-gray-100 relative`}
       >
+        <Popup>
+          <div>
+            Prueba
+          </div>
+        </Popup>
         <Navbar></Navbar>
         <main className="px-4 py-12">
           {children}
