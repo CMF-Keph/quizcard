@@ -1,6 +1,7 @@
 'use client';
 
 import { usePopup } from "@/app/hook/usePopup";
+import EditPopup from "./EditPopup";
 
 const Edit = () => {
   const { show } = usePopup();
@@ -23,7 +24,7 @@ const Edit = () => {
           <p>Estado</p>
           <p>Etiquetas</p>
           <div className="flex justify-end">
-            <button onClick={() => show(<div>Test</div>, "Crear tarjeta")} className="hover:bg-green-800 cursor-pointer bg-green-700 p-2 text-xs rounded-lg">Añadir</button>
+            <button onClick={() => show(<EditPopup></EditPopup>, "Crear tarjeta")} className="hover:bg-green-800 cursor-pointer bg-green-700 p-2 text-xs rounded-lg">Añadir</button>
           </div>
         </div>
         <div className="grid grid-cols-5 border-b odd:bg-gray-800 border-x p-4 gap-4 last:rounded-b-lg border-gray-700 text-gray-100 text-medium bg-gray-900 items-center">
@@ -36,7 +37,7 @@ const Edit = () => {
             <span className="whitespace-nowrap overflow-hidden text-ellipsis bg-blue-950 p-1 rounded">Tema 1</span>
           </p>
           <p className="flex gap-2 justify-end">
-            <button onClick={() => show(<div>Test</div>, "Editar tarjeta")} className="hover:bg-blue-800 cursor-pointer bg-blue-700 p-2 text-xs rounded-lg">Editar</button>
+            <button onClick={() => show(<EditPopup></EditPopup>, "Editar tarjeta")} className="hover:bg-blue-800 cursor-pointer bg-blue-700 p-2 text-xs rounded-lg">Editar</button>
             <button className="hover:bg-red-800 cursor-pointer bg-red-700 p-2 text-xs rounded-lg">Borrar</button>
           </p>
         </div>

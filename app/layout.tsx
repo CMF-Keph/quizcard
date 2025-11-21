@@ -26,11 +26,7 @@ export default function RootLayout({
         className={`${font.className} antialiased bg-gray-900 text-gray-100 relative`}
       >
         <PopupProvider>
-          <Popup>
-            <div>
-              Prueba
-            </div>
-          </Popup>
+          <Popup></Popup>
           <Navbar></Navbar>
           <main className="px-4 py-12">
             {children}

@@ -3,11 +3,7 @@
 import { useEffect } from "react";
 import { usePopup } from "../hook/usePopup";
 
-interface PopupProps {
-  children: React.ReactNode
-}
-
-const Popup: React.FC<PopupProps> = () => {
+const Popup = () => {
   const { isOpen, content, title, hide } = usePopup();
 
   useEffect(() => {
