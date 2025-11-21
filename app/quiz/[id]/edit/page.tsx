@@ -1,11 +1,43 @@
 'use client';
 
 import { usePopup } from "@/app/hook/usePopup";
-import EditPopup from "./EditPopup";
-import CreatePopup from "../../create/CreatePopup";
+import CreatePopup from "./CreatePopup";
+import EditCard from "./EditCard";
+import { Card } from "@/app/types";
 
 const Edit = () => {
   const { show } = usePopup();
+
+  const CARDS: Card[] = [
+    {
+      id: "1",
+      deckId: "1",
+      easinessFactor: 2.5,
+      interval: 2,
+      repetitions: 2,
+      front: "わたし",
+      back: "Yo (formal)",
+      dueDate: new Date().toUTCString(),
+      createdAt: new Date().toUTCString(),
+      history: [],
+      tags: ["Tema 1", "Minna no Nihongo"],
+      state: "new"
+    },
+    {
+      id: "2",
+      deckId: "1",
+      easinessFactor: 2.5,
+      interval: 2,
+      repetitions: 2,
+      front: "わたし",
+      back: "Yo (formal)",
+      dueDate: new Date().toUTCString(),
+      createdAt: new Date().toUTCString(),
+      history: [],
+      tags: ["Tema 1", "Minna no Nihongo"],
+      state: "new"
+    }
+  ]
 
   return (
     <div className="mx-auto max-w-7xl flex flex-col gap-8">
@@ -28,59 +60,7 @@ const Edit = () => {
             <button onClick={() => show(<CreatePopup></CreatePopup>, "Crear tarjeta")} className="hover:bg-green-800 cursor-pointer bg-green-700 p-2 text-xs rounded-lg">Añadir</button>
           </div>
         </div>
-        <div className="grid grid-cols-5 border-b odd:bg-gray-800 border-x p-4 gap-4 last:rounded-b-lg border-gray-700 text-gray-100 text-medium bg-gray-900 items-center">
-          <p>わたし</p>
-          <p>Yo</p>
-          <p>Nueva</p>
-          <p className="grid grid-cols-3 gap-2 overflow-auto text-xs">
-            <span className="whitespace-nowrap overflow-hidden text-ellipsis bg-blue-950 p-1 rounded">Tema 1</span>
-            <span className="whitespace-nowrap overflow-hidden text-ellipsis bg-blue-950 p-1 rounded">Minna no Nihongo</span>
-            <span className="whitespace-nowrap overflow-hidden text-ellipsis bg-blue-950 p-1 rounded">Tema 1</span>
-          </p>
-          <p className="flex gap-2 justify-end">
-            <button onClick={() => show(<EditPopup></EditPopup>, "Editar tarjeta")} className="hover:bg-blue-800 cursor-pointer bg-blue-700 p-2 text-xs rounded-lg">Editar</button>
-            <button className="hover:bg-red-800 cursor-pointer bg-red-700 p-2 text-xs rounded-lg">Borrar</button>
-          </p>
-        </div>
-        <div className="grid grid-cols-5 border-b odd:bg-gray-800 border-x p-4 gap-4 last:rounded-b-lg border-gray-700 text-gray-100 text-medium bg-gray-900 items-center">
-          <p>わたし</p>
-          <p>Yo</p>
-          <p>Nueva</p>
-          <p className="grid grid-cols-3 gap-2 overflow-auto text-xs">
-            <span className="whitespace-nowrap overflow-hidden text-ellipsis bg-blue-950 p-1 rounded">Tema 1</span>
-            <span className="whitespace-nowrap overflow-hidden text-ellipsis bg-blue-950 p-1 rounded">Minna no Nihongo</span>
-            <span className="whitespace-nowrap overflow-hidden text-ellipsis bg-blue-950 p-1 rounded">Tema 1</span>
-          </p>
-          <p className="text-right">
-            <button className="hover:bg-blue-800 cursor-pointer bg-blue-700 p-2 text-xs rounded-lg">Editar</button>
-          </p>
-        </div>
-        <div className="grid grid-cols-5 border-b odd:bg-gray-800 border-x p-4 gap-4 last:rounded-b-lg border-gray-700 text-gray-100 text-medium bg-gray-900 items-center">
-          <p>わたし</p>
-          <p>Yo</p>
-          <p>Nueva</p>
-          <p className="grid grid-cols-3 gap-2 overflow-auto text-xs">
-            <span className="whitespace-nowrap overflow-hidden text-ellipsis bg-blue-950 p-1 rounded">Tema 1</span>
-            <span className="whitespace-nowrap overflow-hidden text-ellipsis bg-blue-950 p-1 rounded">Minna no Nihongo</span>
-            <span className="whitespace-nowrap overflow-hidden text-ellipsis bg-blue-950 p-1 rounded">Tema 1</span>
-          </p>
-          <p className="text-right">
-            <button className="hover:bg-blue-800 cursor-pointer bg-blue-700 p-2 text-xs rounded-lg">Editar</button>
-          </p>
-        </div>
-        <div className="grid grid-cols-5 border-b odd:bg-gray-800 border-x p-4 gap-4 last:rounded-b-lg border-gray-700 text-gray-100 text-medium bg-gray-900 items-center">
-          <p>わたし</p>
-          <p>Yo</p>
-          <p>Nueva</p>
-          <p className="grid grid-cols-3 gap-2 overflow-auto text-xs">
-            <span className="whitespace-nowrap overflow-hidden text-ellipsis bg-blue-950 p-1 rounded">Tema 1</span>
-            <span className="whitespace-nowrap overflow-hidden text-ellipsis bg-blue-950 p-1 rounded">Minna no Nihongo</span>
-            <span className="whitespace-nowrap overflow-hidden text-ellipsis bg-blue-950 p-1 rounded">Tema 1</span>
-          </p>
-          <p className="text-right">
-            <button className="hover:bg-blue-800 cursor-pointer bg-blue-700 p-2 text-xs rounded-lg">Editar</button>
-          </p>
-        </div>
+        {CARDS.map((card) => <EditCard key={card.id} card={card}></EditCard>)}        
       </div>
     </div>
   )
