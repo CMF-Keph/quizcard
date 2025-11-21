@@ -1,0 +1,129 @@
+{
+  "decks": [
+    {
+      "id": "deck-1",
+      "name": "Spanish Basics",
+      "description": "Cards for learning basic Spanish words",
+      "defaultEasiness": 2.5,
+      "cardCount": 4,
+      "createdAt": "2025-01-01T12:00:00.000Z"
+    }
+  ],
+  "cards": [
+    {
+      "id": "card-1",
+      "deckId": "deck-1",
+      "easinessFactor": 2.5,
+      "interval": 0,
+      "repetitions": 0,
+      "front": "Hola",
+      "back": "Hello",
+      "dueDate": "2025-01-01T12:00:00.000Z",
+      "createdAt": "2025-01-01T12:00:00.000Z",
+      "history": [],
+      "tags": ["greeting"],
+      "suspended": false,
+      "state": "new",
+      "fails": 0
+    },
+    {
+      "id": "card-2",
+      "deckId": "deck-1",
+      "easinessFactor": 2.6,
+      "interval": 1,
+      "repetitions": 1,
+      "front": "Adiós",
+      "back": "Goodbye",
+      "dueDate": "2025-01-02T12:00:00.000Z",
+      "createdAt": "2025-01-01T12:00:00.000Z",
+      "history": [
+        {
+          "reviewedAt": "2025-01-01T12:10:00.000Z",
+          "rating": 2,
+          "intervalBefore": 0,
+          "intervalAfter": 1,
+          "easinessBefore": 2.5,
+          "easinessAfter": 2.6,
+          "repetitionsBefore": 0,
+          "repetitionsAfter": 1,
+          "dueDateBefore": "2025-01-01T12:00:00.000Z",
+          "dueDateAfter": "2025-01-02T12:00:00.000Z"
+        }
+      ],
+      "tags": ["greeting"],
+      "suspended": false,
+      "state": "learning",
+      "fails": 0
+    },
+    {
+      "id": "card-3",
+      "deckId": "deck-1",
+      "easinessFactor": 2.4,
+      "interval": 1,
+      "repetitions": 0,
+      "front": "Gracias",
+      "back": "Thank you",
+      "dueDate": "2025-01-01T18:00:00.000Z",
+      "createdAt": "2025-01-01T12:00:00.000Z",
+      "history": [
+        {
+          "reviewedAt": "2025-01-01T12:20:00.000Z",
+          "rating": 1,
+          "intervalBefore": 0,
+          "intervalAfter": 1,
+          "easinessBefore": 2.5,
+          "easinessAfter": 2.4,
+          "repetitionsBefore": 0,
+          "repetitionsAfter": 0,
+          "dueDateBefore": "2025-01-01T12:00:00.000Z",
+          "dueDateAfter": "2025-01-01T18:00:00.000Z"
+        }
+      ],
+      "tags": [],
+      "suspended": false,
+      "state": "relearning",
+      "fails": 1
+    },
+    {
+      "id": "card-4",
+      "deckId": "deck-1",
+      "easinessFactor": 3.0,
+      "interval": 6,
+      "repetitions": 2,
+      "front": "Por favor",
+      "back": "Please",
+      "dueDate": "2025-01-07T12:00:00.000Z",
+      "createdAt": "2025-01-01T12:00:00.000Z",
+      "history": [
+        {
+          "reviewedAt": "2025-01-01T12:30:00.000Z",
+          "rating": 2,
+          "intervalBefore": 0,
+          "intervalAfter": 1,
+          "easinessBefore": 2.5,
+          "easinessAfter": 2.6,
+          "repetitionsBefore": 0,
+          "repetitionsAfter": 1,
+          "dueDateBefore": "2025-01-01T12:00:00.000Z",
+          "dueDateAfter": "2025-01-02T12:00:00.000Z"
+        },
+        {
+          "reviewedAt": "2025-01-02T12:00:00.000Z",
+          "rating": 2,
+          "intervalBefore": 1,
+          "intervalAfter": 6,
+          "easinessBefore": 2.6,
+          "easinessAfter": 3.0,
+          "repetitionsBefore": 1,
+          "repetitionsAfter": 2,
+          "dueDateBefore": "2025-01-02T12:00:00.000Z",
+          "dueDateAfter": "2025-01-07T12:00:00.000Z"
+        }
+      ],
+      "tags": [],
+      "suspended": false,
+      "state": "review",
+      "fails": 0
+    }
+  ]
+}

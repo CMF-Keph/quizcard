@@ -15,7 +15,7 @@ const EditCard: React.FC<EditCardProps> = ({card}) => {
 			<p>{card.back}</p>
 			<p>{card.state}</p>
 			<p className="flex gap-2 overflow-hidden">
-				{card.tags.map((tag) => <span className="max-w-13 whitespace-nowrap overflow-hidden text-ellipsis bg-gray-700 text-gray-100 p-1 rounded text-sm">{tag}</span>)}					
+				{card.tags.map((tag) => <span key={tag} className="max-w-13 whitespace-nowrap overflow-hidden text-ellipsis bg-gray-700 text-gray-100 p-1 rounded text-sm">{tag}</span>)}					
 			</p>
 			<p className="flex gap-2 justify-end">
 				<button onClick={() => show(<EditPopup></EditPopup>, "Editar tarjeta")} className="hover:bg-blue-800 cursor-pointer bg-blue-700 p-2 text-xs rounded-lg">Editar</button>
