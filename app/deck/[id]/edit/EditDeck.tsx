@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import CreatePopup from "./CreatePopup";
 import EditCard from "./EditCard";
+import { Card, Deck } from "@/app/types";
 
 interface EditDeckProps {
 	deckId: string;
@@ -15,10 +16,9 @@ const EditDeck: React.FC<EditDeckProps> = ({deckId}) => {
   const { show } = usePopup();
   const router = useRouter();
 
-  const [deck, setDeck] = useState<any | null>(null);
-  const [cards, setCards] = useState<any[]>([]);
+  const [deck, setDeck] = useState<Deck | null>(null);
+  const [cards, setCards] = useState<Card[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     let mounted = true;
@@ -40,7 +40,6 @@ const EditDeck: React.FC<EditDeckProps> = ({deckId}) => {
       } 
       catch (err: any) {
         console.error('Error loading deck/cards:', err);
-        setError(err?.message ?? 'Error');
       }
       finally {
         if (mounted) setLoading(false);
@@ -55,7 +54,6 @@ const EditDeck: React.FC<EditDeckProps> = ({deckId}) => {
   }, [deckId, router]);
 
   if (loading) return <div className="p-8 text-gray-300">Cargando...</div>;
-  if (error) return <div className="p-8 text-red-400">Error: {error}</div>;
   if (!deck) return null;
 
   return (
