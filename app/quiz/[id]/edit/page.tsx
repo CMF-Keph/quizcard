@@ -2,6 +2,7 @@
 
 import { usePopup } from "@/app/hook/usePopup";
 import EditPopup from "./EditPopup";
+import CreatePopup from "../../create/CreatePopup";
 
 const Edit = () => {
   const { show } = usePopup();
@@ -24,7 +25,7 @@ const Edit = () => {
           <p>Estado</p>
           <p>Etiquetas</p>
           <div className="flex justify-end">
-            <button onClick={() => show(<EditPopup></EditPopup>, "Crear tarjeta")} className="hover:bg-green-800 cursor-pointer bg-green-700 p-2 text-xs rounded-lg">Añadir</button>
+            <button onClick={() => show(<CreatePopup></CreatePopup>, "Crear tarjeta")} className="hover:bg-green-800 cursor-pointer bg-green-700 p-2 text-xs rounded-lg">Añadir</button>
           </div>
         </div>
         <div className="grid grid-cols-5 border-b odd:bg-gray-800 border-x p-4 gap-4 last:rounded-b-lg border-gray-700 text-gray-100 text-medium bg-gray-900 items-center">
