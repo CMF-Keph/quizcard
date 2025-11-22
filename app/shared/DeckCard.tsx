@@ -18,7 +18,7 @@ const DeckCard: React.FC<DeckCardProps> = ({ deck }) => {
 				</div>
 				<div className="flex gap-4">
 					<Link href={`/deck/${deck.id}/edit`} className="hover:text-gray-500 text-xl text-gray-400 font-semibold cursor-pointer"><Pencil></Pencil></Link>
-					<button className="hover:text-red-600 text-xl text-red-500 font-semibold cursor-pointer"><Trash2></Trash2></button>
+					<button className="hover:text-gray-500 text-xl text-gray-400 font-semibold cursor-pointer"><Trash2></Trash2></button>
 				</div>
 			</div>
 			<div className="flex flex-col gap-2">

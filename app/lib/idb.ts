@@ -87,6 +87,15 @@ export const getCardsByDeckId = async (deckId: string): Promise<Card[]> => {
 	return results as Card[];
 }
 
+export const createDeck = async (payload: Partial<Deck>): Promise<Deck> => {
+	const db = await getDb();
+	const deck = ensureDeckDefaults(payload);
+
+	await db.add(DECKS_STORE, deck);
+
+	return deck;
+}
+
 export const seedFromUrl = async (jsonUrl: string): Promise<{ decks: number; cards: number }> => {
 	// jsonUrl: debe apuntar a un JSON con keys { decks: Deck[], cards: Card[] }
 	// Nota: la ruta por defecto es el path local que generamos antes; 
