@@ -19,7 +19,7 @@ const EditCard: React.FC<EditCardProps> = ({ card }) => {
 				{card.tags.map((tag) => <span key={tag} className="whitespace-nowrap overflow-hidden text-ellipsis bg-gray-900 border border-gray-700 text-gray-100 px-2 py-1 rounded text-sm">{tag}</span>)}
 			</p>
 			<p className="flex gap-2 justify-end">
-				<button onClick={() => show(<EditPopup></EditPopup>, "Editar tarjeta")} className="hover:bg-blue-800 cursor-pointer bg-blue-700 p-2 text-xs rounded-lg"><Pencil size={20} /></button>
+				<button onClick={() => show(<EditPopup card={card}></EditPopup>, "Editar tarjeta")} className="hover:bg-blue-800 cursor-pointer bg-blue-700 p-2 text-xs rounded-lg"><Pencil size={20} /></button>
 				<button className="hover:bg-red-800 cursor-pointer bg-red-700 p-2 text-xs rounded-lg"><Trash2 size={20} /></button>
 			</p>
 		</div>

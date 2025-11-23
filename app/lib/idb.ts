@@ -105,6 +105,18 @@ export const createCard = async (payload: Partial<Card>): Promise<Card> => {
 	return card;
 }
 
+export const updateCard = async (cardId: string, patch: Partial<Card>): Promise<Card | null> => {
+  const db = await getDb();
+  const existing = await db.get(CARDS_STORE, cardId) as Card | undefined;
+  if (!existing) return null;
+
+  const merged: Partial<Card> = { ...existing, ...patch };
+  const updated = ensureCardDefaults(merged);
+
+  await db.put(CARDS_STORE, updated);
+  return updated;
+};
+
 export const deleteDeck = async (dekcId: string): Promise<void> => {
 	const db = await getDb();
 	const tx = db.transaction([DECKS_STORE, CARDS_STORE], 'readwrite');
