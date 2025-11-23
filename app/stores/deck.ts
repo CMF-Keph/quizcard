@@ -1,11 +1,12 @@
 import { create } from "zustand";
 import { Deck } from "../types"
-import { deleteDeck, getDecks } from "../lib/idb";
+import { createDeck, deleteDeck, getDecks } from "../lib/idb";
 
 type State = {
 	decks: Deck[];
 	loading: boolean;
 	loadDecks: () =>  Promise<void>;
+  createDeck: (payload: Deck) => Promise<Deck>;
 	removeDeck: (deckId: string) => Promise<void>;
 	setDecks: (decks: Deck[]) => void;
 }
@@ -21,6 +22,17 @@ const useDecksStore = create<State>((set, get) => ({
       set({ decks });
     } 
 		finally {
+      set({ loading: false });
+    }
+  },
+  createDeck: async (payload: Deck) => {
+    set({ loading: true });
+
+    try {
+      var deck = await createDeck(payload);
+      return deck;
+    } 
+    finally {      
       set({ loading: false });
     }
   },

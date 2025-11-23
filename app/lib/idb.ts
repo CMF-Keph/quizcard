@@ -96,6 +96,15 @@ export const createDeck = async (payload: Partial<Deck>): Promise<Deck> => {
 	return deck;
 }
 
+export const createCard = async (payload: Partial<Card>): Promise<Card> => {
+	const db = await getDb();
+	const card = ensureCardDefaults(payload);	
+
+	await db.add(CARDS_STORE, card);
+
+	return card;
+}
+
 export const deleteDeck = async (dekcId: string): Promise<void> => {
 	const db = await getDb();
 	const tx = db.transaction([DECKS_STORE, CARDS_STORE], 'readwrite');

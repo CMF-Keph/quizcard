@@ -1,25 +1,26 @@
 'use client';
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { createDeck } from "@/app/lib/idb";
 import { Deck } from "@/app/types";
 import { LoaderCircle } from "lucide-react";
-
-
-const schema = z.object({
-  name: z.string().min(3, "El nombre debe tener al menos 3 caracteres").max(50, "Máx 50 caracteres"),
-  description: z.string().max(500, "Máx 500 caracteres").optional().or(z.literal("")),
-  defaultEasiness: z.number().min(1, "Valor mínimo 1").max(5, "Valor máximo 5"),
-});
-type FormValues = z.infer<typeof schema>;
+import useDecksStore from "@/app/stores/deck";
 
 const Create = () => {
+  const createDeck = useDecksStore((state) => state.createDeck);
+  const loading = useDecksStore((state) => state.loading);
+
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
+
+  const schema = z.object({
+    name: z.string().min(3, "El nombre debe tener al menos 3 caracteres").max(50, "Máx 50 caracteres"),
+    description: z.string().max(500, "Máx 500 caracteres").optional().or(z.literal("")),
+    defaultEasiness: z.number().min(1, "Valor mínimo 1").max(5, "Valor máximo 5"),
+  });
+
+  type FormValues = z.infer<typeof schema>;
 
   const {
     register,
@@ -31,21 +32,15 @@ const Create = () => {
   });
 
   const onSubmit = async (data: FormValues) => {
-    setLoading(true);
-    try {
-      const payload = {
-        name: data.name,
-        description: data.description || "",
-        defaultEasiness: data.defaultEasiness
-      } as Deck;
+    const payload = {
+      name: data.name,
+      description: data.description || "",
+      defaultEasiness: data.defaultEasiness
+    } as Deck;
 
-      var deck = await createDeck(payload);
+    var deck = await createDeck(payload);
 
-      router.push(`/deck/${deck.id}/edit`);
-    } catch (err) {
-      console.error(err);
-      setLoading(false);
-    }
+    router.push(`/deck/${deck.id}/edit`);
   }
 
   return (
