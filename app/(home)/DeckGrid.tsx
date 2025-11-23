@@ -1,30 +1,21 @@
 'use client';
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Deck } from "../types";
-import { getDecks } from "../lib/idb";
 import DeckCard from "../shared/DeckCard";
+import useDecksStore from "../stores/deck";
+import Link from "next/link";
 
 const DeckGrid = () => {
-	const [decks, setDecks] = useState<Deck[]>([]);
-	const [loading, setLoading] = useState(true);
+	const decks = useDecksStore((state) => state.decks);
+	const loading = useDecksStore((state) => state.loading);
+	const loadDecks = useDecksStore((state) => state.loadDecks);
 
 	useEffect(() => {
 		let mounted = true;
-
-		async function load() {
-			setLoading(true);
-			try {
-				const decks = await getDecks();
-				if (!mounted) return;
-				setDecks(decks);
-			}
-			catch (err: any) {
-				console.error('Error loading deck/cards:', err);
-			}
-			finally {
-				if (mounted) setLoading(false);
-			}
+		async function load() {			
+			if (!mounted) return;
+			await loadDecks();			
 		}
 
 		load();
@@ -32,7 +23,7 @@ const DeckGrid = () => {
 		return () => {
 			mounted = false;
 		};
-	}, []);
+	}, [loadDecks]);
 
 	if (loading) return <div className="p-8 text-gray-300">Cargando...</div>;
 
@@ -49,7 +40,9 @@ const DeckGrid = () => {
 				</div>
 			</div>
 			<div className="grid grid-cols-3 gap-4">
-				{decks.length === 0 && <p className="text-gray-400 col-span-3 text-center">No hay mazos creados</p>}
+				{decks.length === 0 && <div className="border border-blue-700/25 h-24 w-full col-span-3 rounded-lg text-gray-100 bg-blue-600/10 flex items-center justify-center">
+					<Link href="/deck/create" className="text-center bg-blue-600 p-3 rounded-lg font-semibold">¡Crea tu primer mazo!</Link>
+				</div>}
 				{decks.map((deck) => <DeckCard key={deck.id} deck={deck}></DeckCard>)}
 			</div>
 		</>

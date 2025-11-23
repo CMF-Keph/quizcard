@@ -96,6 +96,21 @@ export const createDeck = async (payload: Partial<Deck>): Promise<Deck> => {
 	return deck;
 }
 
+export const deleteDeck = async (dekcId: string): Promise<void> => {
+	const db = await getDb();
+	const tx = db.transaction([DECKS_STORE, CARDS_STORE], 'readwrite');
+	
+	const cardsIndex = tx.objectStore(CARDS_STORE).index('deckId');
+	const cardsToDelete = await cardsIndex.getAllKeys(IDBKeyRange.only(dekcId));
+	for (const cardId of cardsToDelete) {
+		await tx.objectStore(CARDS_STORE).delete(cardId);
+	}	
+
+	await tx.objectStore(DECKS_STORE).delete(dekcId);
+	
+	await tx.done;	
+}
+
 export const seedFromUrl = async (jsonUrl: string): Promise<{ decks: number; cards: number }> => {
 	// jsonUrl: debe apuntar a un JSON con keys { decks: Deck[], cards: Card[] }
 	// Nota: la ruta por defecto es el path local que generamos antes; 

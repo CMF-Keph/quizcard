@@ -3,12 +3,16 @@
 import { Pencil, Trash2 } from "lucide-react";
 import { Deck } from "../types";
 import Link from "next/link";
+import { usePopup } from "../hook/usePopup";
+import DeleteDeckPopup from "./DeleteDeckPopup";
 
 interface DeckCardProps {
 	deck: Deck;
 }
 
 const DeckCard: React.FC<DeckCardProps> = ({ deck }) => {
+	const { show } = usePopup();
+
 	return (
 		<div className="bg-gray-800 border border-gray-700 p-6 rounded-lg flex flex-col gap-4">
 			<div className="flex justify-between items-start">
@@ -18,7 +22,7 @@ const DeckCard: React.FC<DeckCardProps> = ({ deck }) => {
 				</div>
 				<div className="flex gap-4">
 					<Link href={`/deck/${deck.id}/edit`} className="hover:text-gray-500 text-xl text-gray-400 font-semibold cursor-pointer"><Pencil></Pencil></Link>
-					<button className="hover:text-gray-500 text-xl text-gray-400 font-semibold cursor-pointer"><Trash2></Trash2></button>
+					<button onClick={() => show(<DeleteDeckPopup deck={deck}></DeleteDeckPopup>)} className="hover:text-gray-500 text-xl text-gray-400 font-semibold cursor-pointer"><Trash2></Trash2></button>
 				</div>
 			</div>
 			<div className="flex flex-col gap-2">
