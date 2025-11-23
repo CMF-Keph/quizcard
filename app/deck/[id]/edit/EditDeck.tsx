@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import CreatePopup from "./CreatePopup";
 import EditCard from "./EditCard";
-import { Card, Deck } from "@/app/types";
+import { Deck } from "@/app/types";
 import useCardsStore from "@/app/stores/card";
 import { Plus, Trash2 } from "lucide-react";
 
