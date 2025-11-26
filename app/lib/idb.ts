@@ -132,6 +132,12 @@ export const deleteDeck = async (dekcId: string): Promise<void> => {
 	await tx.done;	
 }
 
+export const deleteCard = async (cardId: string): Promise<void> => {
+	const db = await getDb();	
+
+	await db.delete(CARDS_STORE, cardId);	
+}
+
 export const seedFromUrl = async (jsonUrl: string): Promise<{ decks: number; cards: number }> => {
 	// jsonUrl: debe apuntar a un JSON con keys { decks: Deck[], cards: Card[] }
 	// Nota: la ruta por defecto es el path local que generamos antes; 

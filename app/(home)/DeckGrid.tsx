@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { Deck } from "../types";
-import DeckCard from "../shared/DeckCard";
+import DeckCard from "./DeckCard";
 import useDecksStore from "../stores/deck";
 import Link from "next/link";
 

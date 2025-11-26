@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { Card } from "../types"
-import { createCard, getCardsByDeckId, updateCard } from "../lib/idb";
+import { createCard, deleteCard, getCardsByDeckId, updateCard } from "../lib/idb";
 
 type State = {
   cards: Card[];
@@ -9,6 +9,7 @@ type State = {
   setCards: (cards: Card[]) => void;
   updateCard: (cardId: string, card: Partial<Card>) => Promise<void>;
   createCard: (payload: Card) => Promise<Card>;
+  deleteCard: (cardId: string) => Promise<void>;
 }
 
 const useCardsStore = create<State>((set, get) => ({
@@ -29,7 +30,7 @@ const useCardsStore = create<State>((set, get) => ({
     set({ loading: true });
 
     try {
-      await updateCard(cardId, card);      
+      await updateCard(cardId, card);
     }
     finally {
       set({ loading: false });
@@ -41,6 +42,17 @@ const useCardsStore = create<State>((set, get) => ({
     try {
       const card = await createCard(payload);
       return card;
+    }
+    finally {
+      set({ loading: false });
+    }
+  },
+  deleteCard: async (cardId: string) => {
+    set({ loading: true });
+
+    try {
+      await deleteCard(cardId);
+      set({ cards: get().cards.filter((card) => card.id !== cardId) });
     }
     finally {
       set({ loading: false });

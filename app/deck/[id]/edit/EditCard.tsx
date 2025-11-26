@@ -2,6 +2,7 @@ import { Card } from "@/app/types";
 import EditPopup from "./EditPopup";
 import { usePopup } from "@/app/hook/usePopup";
 import { Pencil, Trash2 } from "lucide-react";
+import DeletePopup from "./DeletePopup";
 
 interface EditCardProps {
 	card: Card;
@@ -20,7 +21,7 @@ const EditCard: React.FC<EditCardProps> = ({ card }) => {
 			</p>
 			<p className="flex gap-2 justify-end">
 				<button onClick={() => show(<EditPopup card={card}></EditPopup>, "Editar tarjeta")} className="hover:bg-blue-800 cursor-pointer bg-blue-700 p-2 text-xs rounded-lg"><Pencil size={20} /></button>
-				<button className="hover:bg-red-800 cursor-pointer bg-red-700 p-2 text-xs rounded-lg"><Trash2 size={20} /></button>
+				<button onClick={() => show(<DeletePopup card={card}></DeletePopup>)} className="hover:bg-red-800 cursor-pointer bg-red-700 p-2 text-xs rounded-lg"><Trash2 size={20} /></button>
 			</p>
 		</div>
 	)
