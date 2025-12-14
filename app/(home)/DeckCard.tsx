@@ -111,7 +111,7 @@ const DeckCard: React.FC<DeckCardProps> = ({ deck }) => {
 					<div className="flex flex-col gap-2">
 						<div className="flex justify-between">
 							<p className="text-gray-400">Progreso</p>
-							<span className="text-gray-100 font-semibold">{((cards.length - pendingCards.length) / cards.length) * 100 || 0} %</span>
+							<span className="text-gray-400 font-semibold">{Number((((cards.length - pendingCards.length) / cards.length) * 100).toFixed(2)).toString() || 0} %</span>
 						</div>
 						<div className="relative">
 							<div className="w-full h-2 bg-gray-500 rounded-full"></div>
