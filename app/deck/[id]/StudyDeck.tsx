@@ -5,6 +5,7 @@ import { schedule } from "@/app/lib/scheduler";
 import { Card, Deck } from "@/app/types";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useHotkeys } from "react-hotkeys-hook";
 
 interface StudyDeckProps {
 	deckId: string;
@@ -18,6 +19,11 @@ const StudyDeck: React.FC<StudyDeckProps> = ({ deckId }) => {
 	const [activeCard, setActiveCard] = useState<Card>();
 	const [loading, setLoading] = useState(true);
 	const [showBack, setShowBack] = useState(false);
+
+	useHotkeys('space', () => {!showBack && setShowBack(true)})
+	useHotkeys('1', () => {activeCard && showBack && handleStudyCard(activeCard, 1)})
+	useHotkeys('2', () => {activeCard && showBack && handleStudyCard(activeCard!, 2)})
+	useHotkeys('3', () => {activeCard && showBack && handleStudyCard(activeCard!, 3)})
 
 	const setCardsDeck = (cards: Card[]) => {
 		setCards(cards);
@@ -108,9 +114,18 @@ const StudyDeck: React.FC<StudyDeckProps> = ({ deckId }) => {
 				</div>
 				{showBack ?
 					<div className="flex gap-2">
-						<button onClick={() => handleStudyCard(activeCard!, 1)} className="w-30 bg-gray-900 rounded p-2 border border-gray-700 hover:bg-gray-950 cursor-pointer text-red-200">Difícil</button>
-						<button onClick={() => handleStudyCard(activeCard!, 2)} className="w-30 bg-gray-900 rounded p-2 border border-gray-700 hover:bg-gray-950 cursor-pointer text-orange-200">Normal</button>
-						<button onClick={() => handleStudyCard(activeCard!, 3)} className="w-30 bg-gray-900 rounded p-2 border border-gray-700 hover:bg-gray-950 cursor-pointer text-green-200">Muy fácil</button>
+						<div className="flex flex-col items-center gap-1 ">
+							<span className="bg-gray-900 py-0.5 text-red-200 text-xs px-2 rounded border border-gray-700">&gt; 30 s</span>
+							<button onClick={() => handleStudyCard(activeCard!, 1)} className="w-30 bg-gray-900 rounded p-2 border border-gray-700 hover:bg-gray-950 cursor-pointer text-red-200">Difícil</button>
+						</div>
+						<div className="flex flex-col items-center gap-1 ">
+							<span className="bg-gray-900 py-0.5 text-orange-200 text-xs px-2 rounded border border-gray-700">&gt; 5 s</span>
+							<button onClick={() => handleStudyCard(activeCard!, 2)} className="w-30 bg-gray-900 rounded p-2 border border-gray-700 hover:bg-gray-950 cursor-pointer text-orange-200">Normal</button>
+						</div>
+						<div className="flex flex-col items-center gap-1 ">
+							<span className="bg-gray-900 py-0.5 text-green-200 text-xs px-2 rounded border border-gray-700">&lt;= 5 s</span>
+							<button onClick={() => handleStudyCard(activeCard!, 3)} className="w-30 bg-gray-900 rounded p-2 border border-gray-700 hover:bg-gray-950 cursor-pointer text-green-200">Muy fácil</button>
+						</div>
 					</div>
 					:
 					<button onClick={() => setShowBack(true)} className="bg-gray-900 rounded p-2 border border-gray-700 hover:bg-gray-950 cursor-pointer text-gray-200">Mostrar respuesta</button>
