@@ -1,6 +1,6 @@
 'use client';
 
-import { getCardsByDeckId, getCardsToStudyByDeckId, getDeckById, updateCard } from "@/app/lib/idb";
+import { getCardsToStudyByDeckId, getDeckById, updateCard } from "@/app/lib/idb";
 import { schedule } from "@/app/lib/scheduler";
 import { Card, Deck } from "@/app/types";
 import { useRouter } from "next/navigation";
@@ -10,59 +10,63 @@ interface StudyDeckProps {
 	deckId: string;
 }
 
-const StudyDeck: React.FC<StudyDeckProps> = ({ deckId }) => {	
+const StudyDeck: React.FC<StudyDeckProps> = ({ deckId }) => {
 	const router = useRouter();
 
 	const [cards, setCards] = useState<Card[]>([]);
 	const [deck, setDeck] = useState<Deck>();
 	const [activeCard, setActiveCard] = useState<Card>();
 	const [loading, setLoading] = useState(true);
+	const [showBack, setShowBack] = useState(false);
 
 	const setCardsDeck = (cards: Card[]) => {
 		setCards(cards);
 		setActiveCard(
-			cards.sort((a, b) =>  new Date(b.dueDate).getTime() - new Date(a.dueDate).getTime())[0]
+			cards.sort((a, b) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime())[0]
 		);
 	}
 
 	const initializeStudy = async () => {
-			setLoading(true);
-			try {
-				const deck = await getDeckById(deckId);				
-				if (!deck) {
-					router.push('/');
-					return;
-				}				
-				setDeck(deck);
+		setLoading(true);
+		try {
+			console.log(deckId);
+			const deck = await getDeckById(deckId);
+			console.log(deck);
+			if (!deck) {
+				router.push('/');
+				return;
+			}
+			setDeck(deck);
 
-				const cards = await getCardsToStudyByDeckId(deckId);
-				if(!cards) {
-					router.push('/');
-					return;
-				}
-				setCardsDeck(cards);				
+			const cards = await getCardsToStudyByDeckId(deckId);
+			console.log(cards)
+			if (!cards) {
+				router.push('/');
+				return;
 			}
-			catch (err: any) {
-				console.error('Error loading deck/cards:', err);
-			}
-			finally {
-				setLoading(false);
-			}
+			setCardsDeck(cards);
 		}
+		catch (err: any) {
+			console.error('Error loading deck/cards:', err);
+		}
+		finally {
+			setLoading(false);
+		}
+	}
 
-	useEffect(() => {		
+	useEffect(() => {
 		initializeStudy();
 	}, [deckId, router]);
 
 	const handleStudyCard = async (card: Card, quality: number) => {
-		var cardToUpdate = schedule(card, quality);		
+		setShowBack(false);
+		var cardToUpdate = schedule(card, quality);
 		var updatedCard = await updateCard(card.id, cardToUpdate);
 
 		if (!updatedCard) {
 			console.error("Couldn't retreive updated card");
 			return;
 		}
-
 		var newDueDate = new Date(updatedCard.dueDate);
 		var actualDate = new Date();
 
@@ -70,10 +74,10 @@ const StudyDeck: React.FC<StudyDeckProps> = ({ deckId }) => {
 			var updatedCardsDeck = cards.filter(c => c.id !== updatedCard!.id);
 
 			if (updatedCardsDeck.length === 0) {
-				router.push('/');
+				router.push(`/deck/${deckId}/finish`);
 				return;
 			}
-			
+
 			setCardsDeck(updatedCardsDeck);
 			return;
 		}
@@ -93,12 +97,24 @@ const StudyDeck: React.FC<StudyDeckProps> = ({ deckId }) => {
 				</div>
 			</div>
 			<div className="bg-gray-800 border border-gray-700 p-12 rounded-lg flex flex-col gap-3 w-full h-[calc(100vh-80px-96px-32px-76px)] items-center justify-between">
-				<p className="text-gray-100 text-5xl font-medium">{activeCard?.front}</p>
-				<div className="flex gap-2">
-					<button onClick={() => handleStudyCard(activeCard!, 1)} className="w-30 bg-gray-900 rounded p-2 border border-gray-700 hover:bg-gray-950 cursor-pointer text-red-200">Difícil</button>
-					<button onClick={() => handleStudyCard(activeCard!, 2)} className="w-30 bg-gray-900 rounded p-2 border border-gray-700 hover:bg-gray-950 cursor-pointer text-orange-200">Normal</button>
-					<button onClick={() => handleStudyCard(activeCard!, 3)} className="w-30 bg-gray-900 rounded p-2 border border-gray-700 hover:bg-gray-950 cursor-pointer text-green-200">Muy fácil</button>
+				<div className="flex-col flex gap-8 w-full text-center">
+					<p className="text-gray-200 text-5xl font-medium">{activeCard?.front}</p>
+					{showBack &&
+						<>
+							<hr className="border-none h-0.5 bg-gray-700"></hr>
+							<p className="text-gray-400 text-4xl font-medium">{activeCard?.back}</p>
+						</>
+					}
 				</div>
+				{showBack ?
+					<div className="flex gap-2">
+						<button onClick={() => handleStudyCard(activeCard!, 1)} className="w-30 bg-gray-900 rounded p-2 border border-gray-700 hover:bg-gray-950 cursor-pointer text-red-200">Difícil</button>
+						<button onClick={() => handleStudyCard(activeCard!, 2)} className="w-30 bg-gray-900 rounded p-2 border border-gray-700 hover:bg-gray-950 cursor-pointer text-orange-200">Normal</button>
+						<button onClick={() => handleStudyCard(activeCard!, 3)} className="w-30 bg-gray-900 rounded p-2 border border-gray-700 hover:bg-gray-950 cursor-pointer text-green-200">Muy fácil</button>
+					</div>
+					:
+					<button onClick={() => setShowBack(true)} className="bg-gray-900 rounded p-2 border border-gray-700 hover:bg-gray-950 cursor-pointer text-gray-200">Mostrar respuesta</button>
+				}
 			</div>
 		</div>
 	)

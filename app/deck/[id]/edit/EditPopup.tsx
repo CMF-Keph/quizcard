@@ -12,8 +12,8 @@ interface EditPopupProps {
 
 const EditPopup: React.FC<EditPopupProps> = ({ card }) => {
   const schema = z.object({
-    front: z.string().min(1, "Debe tener al menos un caracter").max(256, "No debe sobrepasar los 256 caracteres"),
-    back: z.string().min(1, "Debe tener al menos un caracter").max(256, "No debe sobrepasar los 256 caracteres"),
+    front: z.string().min(1, "No puede estar vacío").max(256, "No debe sobrepasar los 256 caracteres"),
+    back: z.string().min(1, "No puede estar vacío").max(256, "No debe sobrepasar los 256 caracteres"),
     tags: z.array(z.string().min(1)).max(3, "Solo puedes poner 3 etiquetas máximo").optional(),
   });
 

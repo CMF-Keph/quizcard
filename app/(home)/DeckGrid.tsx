@@ -6,9 +6,7 @@ import useDecksStore from "../stores/deck";
 import Link from "next/link";
 
 const DeckGrid = () => {
-	const decks = useDecksStore((state) => state.decks);
-	const loading = useDecksStore((state) => state.loading);
-	const loadDecks = useDecksStore((state) => state.loadDecks);	
+	const { decks, loading, loadDecks } = useDecksStore();
 
 	useEffect(() => {
 		let mounted = true;
@@ -26,17 +24,13 @@ const DeckGrid = () => {
 
 	if (loading) return <div className="p-8 text-gray-300">Cargando...</div>;
 
-	return (
-		<>
-			<div className="grid grid-cols-4 gap-4">				
-			</div>
-			<div className="grid grid-cols-3 gap-4">
-				{decks.length === 0 && <div className="border border-blue-700/25 h-24 w-full col-span-3 rounded-lg text-gray-100 bg-blue-600/10 flex items-center justify-center">
-					<Link href="/deck/create" className="text-center bg-blue-600 p-3 rounded-lg font-semibold">¡Crea tu primer mazo!</Link>
-				</div>}
-				{decks.map((deck) => <DeckCard key={deck.id} deck={deck}></DeckCard>)}
-			</div>
-		</>
+	return (					
+		<div className="grid grid-cols-3 gap-4">
+			{decks.length === 0 && <div className="border border-blue-700/25 h-24 w-full col-span-3 rounded-lg text-gray-100 bg-blue-600/10 flex items-center justify-center">
+				<Link href="/deck/create" className="text-center bg-blue-600 p-3 rounded-lg font-semibold">¡Crea tu primer mazo!</Link>
+			</div>}
+			{decks.map((deck) => <DeckCard key={deck.id} deck={deck}></DeckCard>)}
+		</div>		
 	)
 }
 

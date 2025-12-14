@@ -12,10 +12,10 @@ interface CreatePopupProps {
   deck: Deck;
 }
 
-const CreatePopup: React.FC<CreatePopupProps> = ({deck}) => {
+const CreatePopup: React.FC<CreatePopupProps> = ({ deck }) => {
   const schema = z.object({
-    front: z.string().min(1, "Debe tener al menos un caracter").max(256, "No debe sobrepasar los 256 caracteres"),
-    back: z.string().min(1, "Debe tener al menos un caracter").max(256, "No debe sobrepasar los 256 caracteres"),
+    front: z.string().min(1, "No puede estar vacío").max(256, "No debe sobrepasar los 256 caracteres"),
+    back: z.string().min(1, "No puede estar vacío").max(256, "No debe sobrepasar los 256 caracteres"),
     tags: z.array(z.string().min(1)).max(3, "Solo puedes poner 3 etiquetas máximo").optional(),
   });
 
@@ -33,8 +33,8 @@ const CreatePopup: React.FC<CreatePopupProps> = ({deck}) => {
   });
 
   const { hide } = usePopup();
-  const createCard = useCardsStore((state) => state.createCard );
-  const loadCards = useCardsStore((state) => state.loadCards );
+  const createCard = useCardsStore((state) => state.createCard);
+  const loadCards = useCardsStore((state) => state.loadCards);
 
   const [tags, setTags] = useState<string[]>([]);
   const [input, setInput] = useState("");
@@ -76,7 +76,7 @@ const CreatePopup: React.FC<CreatePopupProps> = ({deck}) => {
       deckId: deck.id,
       front: data.front,
       back: data.back,
-      tags: data.tags,      
+      tags: data.tags,
     } as Card;
 
     await createCard(payload);

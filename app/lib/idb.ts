@@ -48,7 +48,7 @@ function ensureDeckDefaults(deck: Partial<Deck>): Deck {
 }
 
 function ensureCardDefaults(inCard: Partial<Card>): Card {
-	const createdAt = inCard.createdAt ?? new Date().toUTCString();
+	const createdAt = inCard.createdAt ?? nowIso();
 	const deckId = inCard.deckId!;
 	return {
 		id: inCard.id ?? uuidv4(),
@@ -94,6 +94,7 @@ export const getCardsToStudyByDeckId = async (deckId: string): Promise<Card[]> =
 	const results = await index.getAll(IDBKeyRange.only(deckId)) as Card[];
 	await tx.done;
 
+	console.log(results);
 	var cardsToStudy = results.filter(card => card.dueDate <= new Date().toISOString());
 	return cardsToStudy;
 }
@@ -121,9 +122,7 @@ export const updateCard = async (cardId: string, patch: Partial<Card>): Promise<
   const existing = await db.get(CARDS_STORE, cardId) as Card | undefined;
   if (!existing) return null;
 
-  const merged: Partial<Card> = { ...existing, ...patch };
-	console.log(patch);
-	console.log(merged);
+  const merged: Partial<Card> = { ...existing, ...patch };	
   const updated = ensureCardDefaults(merged);
 
   await db.put(CARDS_STORE, updated);
