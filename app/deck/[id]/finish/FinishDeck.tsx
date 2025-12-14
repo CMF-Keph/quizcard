@@ -61,13 +61,6 @@ const FinishDeck: React.FC<FinishDeckProps> = ({ deckId }) => {
 		initializeData();
 	}, [deckId, router]);	
 
-	const minutesFromNow = (next: Date) => {
-		const now = new Date();
-
-		const diffMs = next.getTime() - now.getTime();
-		return Math.floor(diffMs / (1000 * 60));
-	}
-
 	if (loading) return <div className="p-8 text-gray-300">Cargando...</div>;
 
 	return (
@@ -79,11 +72,13 @@ const FinishDeck: React.FC<FinishDeckProps> = ({ deckId }) => {
 			</div>
 			<div className="bg-gray-800 border border-gray-700 p-12 rounded-lg flex flex-col gap-3 w-full h-[calc(100vh-80px-96px-32px-76px)] items-center justify-between">
 				<div className="flex-col flex gap-8 w-full text-center">
-					<p className="text-3xl text-gray-100 font-semibold">¡Felicidades!</p>
 					<div className="flex flex-col gap-2">
+						<p className="text-3xl text-gray-100 font-semibold">¡Felicidades!</p>
 						<p className="text-gray-200 text-lg">Has completado todas las tarjetas de este mazo por ahora.</p>
-						<p className="text-gray-200 text-lg">La próxima revisión es</p>						
-						{nextReviewDate && <p className="bg-gray-800 p-4 text-5xl font-semibold text-green-200">en {minutesFromNow(nextReviewDate)} minutos</p>}
+					</div>
+					<div className="flex flex-col">						
+						<p className="text-gray-200 text-2xl font-semibold">Próxima revisión</p>						
+						{nextReviewDate && <p className="bg-gray-800 p-4 text-5xl font-semibold text-green-200">{nextReviewDate.toLocaleDateString()} {nextReviewDate.toLocaleTimeString()}</p>}
 					</div>
 				</div>
 				<button onClick={() => router.push('/')} className="bg-gray-900 rounded p-2 border border-gray-700 hover:bg-gray-950 cursor-pointer text-gray-200">Volver a inicio</button>				

@@ -7,7 +7,7 @@ export const schedule = (card: Card, quality: number): Card => {
 		newCard.repetitions = 0;
 	}
 	else {
-		if (card.repetitions === 0) newCard.interval = 0.02;
+		if (card.repetitions === 0) newCard.interval = 0.002;
 		if (card.repetitions === 1) newCard.interval = 1;
 		if (card.repetitions === 2) newCard.interval = 3;
 		if (card.repetitions >= 3) newCard.interval  = card.interval * card.easinessFactor;
