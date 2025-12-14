@@ -87,6 +87,17 @@ export const getCardsByDeckId = async (deckId: string): Promise<Card[]> => {
 	return results as Card[];
 }
 
+export const getCardsToStudyByDeckId = async (deckId: string): Promise<Card[]> => {
+	const db = await getDb();
+	const tx = db.transaction(CARDS_STORE, 'readonly');
+	const index = tx.objectStore(CARDS_STORE).index('deckId');
+	const results = await index.getAll(IDBKeyRange.only(deckId)) as Card[];
+	await tx.done;
+
+	var cardsToStudy = results.filter(card => card.dueDate <= new Date().toISOString());
+	return cardsToStudy;
+}
+
 export const createDeck = async (payload: Partial<Deck>): Promise<Deck> => {
 	const db = await getDb();
 	const deck = ensureDeckDefaults(payload);
@@ -111,6 +122,8 @@ export const updateCard = async (cardId: string, patch: Partial<Card>): Promise<
   if (!existing) return null;
 
   const merged: Partial<Card> = { ...existing, ...patch };
+	console.log(patch);
+	console.log(merged);
   const updated = ensureCardDefaults(merged);
 
   await db.put(CARDS_STORE, updated);
