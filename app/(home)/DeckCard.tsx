@@ -70,29 +70,29 @@ const DeckCard: React.FC<DeckCardProps> = ({ deck }) => {
 		return () => clearInterval(interval);
 	}, [msUntilReview]);
 
-const formatRemainingTime = (ms: number, nextDate: Date): string => {  
-	const SECOND = 1000;
-  const MINUTE = 1000 * 60;
-  const HOUR = MINUTE * 60;
-  const DAY = HOUR * 24;
+	const formatRemainingTime = (ms: number, nextDate: Date): string => {  
+		const SECOND = 1000;
+		const MINUTE = 1000 * 60;
+		const HOUR = MINUTE * 60;
+		const DAY = HOUR * 24;
 
-  if (ms >= DAY && nextDate instanceof Date) {
-    return nextDate.toLocaleDateString();
-  }
+		if (ms >= DAY && nextDate instanceof Date) {
+			return nextDate.toLocaleDateString();
+		}
 
-  if (ms >= HOUR) {
-    const hours = Math.floor(ms / HOUR);
-    return `En ${hours} hora${hours !== 1 ? "s" : ""}`;
-  }
+		if (ms >= HOUR) {
+			const hours = Math.floor(ms / HOUR);
+			return `En ${hours} hora${hours !== 1 ? "s" : ""}`;
+		}
 
-  if (ms >= MINUTE) {
-    const minutes = Math.floor(ms / MINUTE);
-    return `En ${minutes} minuto${minutes !== 1 ? "s" : ""}`;
-  }
+		if (ms >= MINUTE) {
+			const minutes = Math.floor(ms / MINUTE);
+			return `En ${minutes} minuto${minutes !== 1 ? "s" : ""}`;
+		}
 
-  const seconds = Math.max(1, Math.floor(ms / SECOND));
-  return `En ${seconds} segundo${seconds !== 1 ? "s" : ""}`;
-}
+		const seconds = Math.max(1, Math.floor(ms / SECOND));
+		return `En ${seconds} segundo${seconds !== 1 ? "s" : ""}`;
+	}
 
 	return (
 		<div className="bg-gray-800 border border-gray-700 p-6 rounded-lg flex flex-col gap-4">
