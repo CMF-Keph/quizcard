@@ -104,11 +104,11 @@ const StudyDeck: React.FC<StudyDeckProps> = ({ deckId }) => {
 			</div>
 			<div className="bg-gray-800 border border-gray-700 p-12 rounded-lg flex flex-col gap-3 w-full h-[calc(100vh-80px-96px-32px-76px)] items-center justify-between">
 				<div className="flex-col flex gap-8 w-full text-center">
-					<p className="text-gray-200 text-5xl font-medium">{activeCard?.front}</p>
+					<p className="text-gray-200 text-5xl font-medium" dangerouslySetInnerHTML={{__html: activeCard?.front || ''}}></p>
 					{showBack &&
 						<>
 							<hr className="border-none h-0.5 bg-gray-700"></hr>
-							<p className="text-gray-400 text-4xl font-medium">{activeCard?.back}</p>
+							<p className="text-gray-400 text-4xl font-medium" dangerouslySetInnerHTML={{__html: activeCard?.back || ''}}></p>
 						</>
 					}
 				</div>
