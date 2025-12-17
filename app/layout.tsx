@@ -11,8 +11,8 @@ const font = Lato({
 });
 
 export const metadata: Metadata = {
-  title: "Quizmaster",
-  description: "Aprende y se consistente gracias a Deckmaster",
+  title: "Quiz",
+  description: "Aprende y se consistente gracias a Deckmaster"
 };
 
 export default function RootLayout({
